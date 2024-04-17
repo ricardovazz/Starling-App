@@ -1,9 +1,11 @@
 from src.api.transactions import get_recent_transactions
+import os
 
 
 def test_get_recent_transactions(httpx_mock):
     # Given
-    URL = "https://api-sandbox.starlingbank.com/api/v2/accounts/dummy-account-id/transactions"
+    BASE_URL = os.getenv('BASE_URL')
+    URL = str(BASE_URL) + "/api/v2/accounts/dummy-account-id/transactions"
     JSON = {'transactions': [{'id': 'tx1'}, {'id': 'tx2'}]}
     httpx_mock.add_response(url=URL, json=JSON)
 

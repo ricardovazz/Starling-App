@@ -1,9 +1,11 @@
 from src.api.accounts import get_account_balance
+import os
 
 
 def test_get_account_balance(httpx_mock):
     # Given
-    URL = "https://api-sandbox.starlingbank.com/api/v2/accounts/dummy-account-id/balance"
+    BASE_URL = os.getenv('BASE_URL')
+    URL = str(BASE_URL) + "/api/v2/accounts/dummy-account-id/balance"
     JSON = {'effectiveBalance': 123.45}
     httpx_mock.add_response(url=URL, json=JSON)
 

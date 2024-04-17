@@ -1,10 +1,22 @@
 import httpx
 import os
+import logging
+from dotenv import load_dotenv
 
-BASE_URL = "https://api-sandbox.starlingbank.com"
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+load_dotenv()
+
+BASE_URL = os.getenv('BASE_URL') #to access sandbox accounts: https://api-sandbox.starlingbank.com
+
 
 def get_headers():
     access_token = os.getenv('STARLING_ACCESS_TOKEN')
+    if not access_token:
+        logger.error("STARLING_ACCESS_TOKEN is not set.")
+        raise ValueError("Missing access token.")
     return {
         "Authorization": f"Bearer {access_token}",
         "Content-Type": "application/json"
