@@ -22,4 +22,3 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 app = 'src.main:start'
-app2 = 'src.main2:start'
